@@ -1,4 +1,4 @@
-# 📦 PickUpPal Database Design
+# PickUpPal Database Design
 
 Hey there
 
@@ -32,7 +32,7 @@ This repo contains all the database work I’ve done for **PickUpPal**, a smart 
 
 Here’s a quick breakdown of each table in the PickUpPal database and what it’s used for:
 
-### 🧑 `Users`
+### `Users`
 - Stores **all users** of the platform — parents, drivers, and admins.
 - Role-based logic (`role` enum) for access control.
 - Used by almost every other table for links and references.
