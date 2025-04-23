@@ -1,9 +1,9 @@
-users → students         (a parent has children)
-users → drivers          (a driver is also a user)
-drivers → vehicles       (a driver has one vehicle)
-users → bookings         (a parent makes a booking)
-bookings → trips         (a trip happens from the booking)
-trips → trip_attendance  (log student pickup/drop-off)
-trips → payments         (record who paid for it)
-users → notifications    (chat between users)
-trips → ratings          (parents rate drivers)
+A user can be a parent or driver
+A parent has students
+A driver has a vehicle
+A parent books a trip for a student
+A driver completes the trip
+A trip logs attendance
+A payment is made for the trip
+A rating is given after the trip
+Notifications are sent between users
