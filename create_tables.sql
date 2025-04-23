@@ -27,7 +27,6 @@ CREATE TABLE PickUpPal.Attendance (
   status ENUM('boarded', 'absent', 'dropped') NOT NULL,
   timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (student_id) REFERENCES PickUpPal.Students(student_id)
-  -- Trip table will be added below
 );
 
 
