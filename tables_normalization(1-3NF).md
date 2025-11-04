@@ -1,104 +1,124 @@
-# PickUpPal Database - Normalization Summary
+# PickUpPal Database – Normalization Summary
 
-This write-up explains how I made sure **all** the tables in the PickUpPal database are organized and not repeating stuff. This process is called **normalization**, and I checked every table to make sure it follows the first 3 rules:
+This summary explains how the PickUpPal database is designed to stay neat and avoid repeated or confusing information. It follows three simple rules:  
 
-- **1NF** = One value per column (nothing like lists)
-- **2NF** = Everything depends on the whole ID (not just part of it)
-- **3NF** = No weird columns that depend on other columns
-
----
-
-## 1. Users Table
-
-- • 1NF: Each column stores only one value
-- • 2NF: All info depends on `user_id`
-- • 3NF: No extra or calculated info here
-
-## 2. Drivers Table
-
-- • 1NF: Everything is clear and separate
-- • 2NF: All depends on `driver_id`
-- • 3NF: `user_id` just connects to Users, not calculated
-
-## 3. Students Table
-
-- • 1NF: Each student has one row
-- • 2NF: All columns depend on `student_id`
-- • 3NF: `user_id` only connects, no hidden info
-
-## 4. Guardians Table
-
-- • 1NF: One guardian per row
-- • 2NF: Based on `guardian_id`
-- • 3NF: All fields describe that guardian only
-
-## 5. Messages Table
-
-- • 1NF: One message per row
-- • 2NF: All tied to `message_id`
-- • 3NF: Nothing weird or repeated from other tables
-
-## 6. Vehicle Table
-
-- • 1NF: One car per row
-- • 2NF: All info depends on `vehicle_id`
-- • 3NF: Model or year are not linked to each other
-
-## 7. Drivers\_Car Table
-
-- • 1NF: One car driver pair per row
-- • 2NF: Everything depends on `id`
-- • 3NF: No overlap or derived columns
-
-## 8. Routes Table
-
-- • 1NF: Each route is its own row
-- • 2NF: All columns use `route_id`
-- • 3NF: Origin or destination not calculated from other fields
-
-## 9. Trips Table
-
-- • 1NF: One trip = one row
-- • 2NF: All data uses `trip_id`
-- • 3NF: Route or driver are just links, not duplicates
-
-## 10. Trip\_Locations Table
-
-- • 1NF: One stop per row
-- • 2NF: Based on `id`
-- • 3NF: All stop info stays with the stop
-
-## 11. Attendance Table
-
-- • 1NF: Each row = one student on one trip
-- • 2NF: Depends on `attendance_id`
-- • 3NF: Status and time are about this exact trip
-
-## 12. Alerts Table
-
-- • 1NF: One alert per row
-- • 2NF: All columns depend on `alert_id`
-- • 3NF: No copied data, just a link to trip or driver
-
-## 13. Ratings Table
-
-- • 1NF: One row per rating
-- • 2NF: All info uses `rating_id`
-- • 3NF: `stars` and `comment` are not based on other columns
-
-## 14. Payments Table
-
-- • 1NF: One payment per row
-- • 2NF: Depends on `payment_id`
-- • 3NF: All info belongs to this one payment only
-
-## 15. Payment\_Methods Table
-
-- • 1NF: Each method is on its own row
-- • 2NF: Tied to `method_id`
-- • 3NF: Nothing depends on other columns
+- **1NF:** Every column holds one piece of information only.  
+- **2NF:** Every detail in a table depends on the main ID of that table.  
+- **3NF:** No column depends on another column, a column only depends on the main ID.  
 
 ---
+
+### 1. Users Table  
+- **1NF:** Each row is one user; no repeated info.  
+- **2NF:** All details belong to that user’s ID.  
+- **3NF:** No column depends on another column.  
+
+### 2. Drivers Table  
+- **1NF:** Each row is one driver.  
+- **2NF:** All details belong to that driver’s ID.  
+- **3NF:** Linked to Users; no repeated or calculated info.  
+
+### 3. Students Table  
+- **1NF:** Each row is one student.  
+- **2NF:** All details belong to that student’s ID.  
+- **3NF:** Connected to Users; no extra or copied data.  
+
+### 4. StudentParentMap Table  
+- **1NF:** Each row shows one student-parent link.  
+- **2NF:** All details depend on the record ID.  
+- **3NF:** Links use foreign keys; no repeated info.  
+
+### 5. Guardians Table  
+- **1NF:** Each row is one guardian.  
+- **2NF:** All details belong to that guardian’s ID.  
+- **3NF:** Describes only the guardian; nothing extra.  
+
+### 6. Messages Table  
+- **1NF:** Each row is one message.  
+- **2NF:** All details belong to that message’s ID.  
+- **3NF:** Sender and receiver are linked to Users; content is separate.  
+
+### 7. Vehicle Table  
+- **1NF:** Each row is one vehicle.  
+- **2NF:** All details belong to that vehicle’s ID.  
+- **3NF:** Details like model and year don’t depend on each other.  
+
+### 8. Drivers_Car Table  
+- **1NF:** Each row shows one driver-car link.  
+- **2NF:** All details depend on the record ID.  
+- **3NF:** Links use foreign keys; no repeated or calculated info.  
+
+### 9. Routes Table  
+- **1NF:** Each row is one route.  
+- **2NF:** All details belong to that route’s ID.  
+- **3NF:** Origin, destination, and time are separate facts.  
+
+### 10. Trips Table  
+- **1NF:** Each row is one trip.  
+- **2NF:** All details belong to that trip’s ID.  
+- **3NF:** Linked to driver and route; no extra info.  
+
+### 11. Trip_Locations Table  
+- **1NF:** Each row is one stop.  
+- **2NF:** All details depend on the record ID.  
+- **3NF:** Stop details are separate; trip link uses a foreign key.  
+
+### 12. TripAttendance Table  
+- **1NF:** Each row shows one student on one trip.  
+- **2NF:** All details belong to that attendance ID.  
+- **3NF:** Times and status only describe that record.  
+
+### 13. Alerts Table  
+- **1NF:** Each row is one alert.  
+- **2NF:** All details belong to that alert’s ID.  
+- **3NF:** Linked to driver or trip; all info is direct.  
+
+### 14. Ratings Table  
+- **1NF:** Each row is one rating.  
+- **2NF:** All details belong to that rating’s ID.  
+- **3NF:** Stars and comment describe this rating only.  
+
+### 15. Payments Table  
+- **1NF:** Each row is one payment.  
+- **2NF:** All details belong to that payment’s ID.  
+- **3NF:** Info is direct; foreign keys link related data.  
+
+### 16. Payment_Methods Table  
+- **1NF:** Each row is one payment method.  
+- **2NF:** All details belong to that method’s ID.  
+- **3NF:** Columns don’t depend on each other.  
+
+### 17. DriverPayouts Table  
+- **1NF:** Each row is one payout.  
+- **2NF:** All details belong to that payout’s ID.  
+- **3NF:** Info is direct; trip link uses a foreign key.  
+
+### 18. Fares Table  
+- **1NF:** Each row is one fare.  
+- **2NF:** All details belong to that fare’s ID.  
+- **3NF:** Base fare and rate per km are separate facts.  
+
+### 19. Documents Table  
+- **1NF:** Each row is one document.  
+- **2NF:** All details belong to that document’s ID.  
+- **3NF:** Info describes the document; linked to Users.  
+
+### 20. AuditLogs Table  
+- **1NF:** Each row is one log.  
+- **2NF:** All details belong to that log’s ID.  
+- **3NF:** Details like action, time, and IP are separate.  
+
+### 21. Schools Table  
+- **1NF:** Each row is one school.  
+- **2NF:** All details belong to that school’s ID.  
+- **3NF:** Name, address, and contact info are independent.  
+
+### 22. Shifts Table  
+- **1NF:** Each row is one shift.  
+- **2NF:** All details belong to that shift’s ID.  
+- **3NF:** Times are not based on other data; linked to school.
+
 
 So now, **all** the tables are fully normalized and follow the **1NF, 2NF, and 3NF**. That means no weird repeats, no messy designs, and no confusion. Just a clean and smart structure that we build on.
+
 
