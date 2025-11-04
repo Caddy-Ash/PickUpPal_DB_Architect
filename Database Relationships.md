@@ -1,7 +1,7 @@
 # PickUpPal Database Relationships – How The Tables Relate To One Another  
 
 ## Users  
-- Every person using PickUpPal is a **user** — they can be a **parent**, **driver**, or **admin**.  
+- Every person using PickUpPal is a **user**, so they can be a **parent**, **driver**, or **admin**.  
 - Parents and drivers connect to other parts of the system depending on their role.  
 
 ---
